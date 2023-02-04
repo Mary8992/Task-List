@@ -6,13 +6,23 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>To Do List</title>
         <!--css link-->
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="style.css" />
         <link
             rel="stylesheet"
             href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         />
     </head>
     <body>
+        <!-- Time and date elements -->
+        <div id="main">
+            <p>
+                <span id="time"></span>
+                <!--format of Time and Date: 15:17:25 & Monday-August 22,2022 -->
+                <span id="date"></span>
+            </p>
+        </div>
+
+        <!-- Todo section -->
         <div class="container">
             <div id="newtask">
                 <input type="text" placeholder="Task to be done.." />
@@ -21,6 +31,6 @@
             <div id="tasks"></div>
         </div>
 
-      <script type="text/javascript" src="main.js"></script>  
+        <script type="text/javascript" src="main.js"></script>
     </body>
 </html>
