@@ -11,6 +11,28 @@ body {
   background: #064DA7;
 }
 
+/*Time and Calendar*/
+#main {
+  color: #fff;
+  font-family: sans-serif;
+  margin: 2.5rem;
+  text-align: center;
+  /* text-shadow: 2px 2px 2px #a66e07;*/
+  text-shadow: 0 2px 1px #910c88, -1px 3px 1px #720f5f, -2px 5px 1px #560a59;
+}
+
+#time {
+  font-size: 2.5rem;
+  font-weight: 500;
+}
+
+#date {
+  font-size: 1.5rem;
+  font-style: italic;
+  text-align: center;
+  display: block;
+  margin-top: 1rem;
+}
 
 /*Todo Container*/
 .container {
