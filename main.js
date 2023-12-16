@@ -52,6 +52,11 @@ let push = document.querySelector("#push");
 
 push.addEventListener("click", addItem);
 
+// Load tasks from local storage on page load
+document.addEventListener("DOMContentLoaded", function () {
+    loadTasksFromLocalStorage();
+});
+
 function addItem() {
     let newTask = document.querySelector("#newtask input");
     let tasks = document.querySelector("#tasks");
@@ -69,19 +74,81 @@ function addItem() {
               </button>
             </div>
           `;
-        //cancel button
 
+        // Save tasks to local storage
+        saveTasksToLocalStorage(newTask.value);
+
+        // Debugging: Log tasks in local storage
+        console.log("Tasks in Local Storage:", getTasksFromLocalStorage());
+
+        // Attach delete event listener to the new task
         let current_tasks = document.querySelectorAll(".delete");
 
         for (var i = 0; i < current_tasks.length; i++) {
             current_tasks[i].addEventListener("click", removeItem);
 
-            function removeItem() {
+            /* function removeItem() {
                 if (confirm("Are you sure?")) {
                     this.parentNode.remove();
                 }
-            }
+            } */
         }
     }
     newTask.value = "";
 }
+
+
+// Function to save tasks to local storage
+function saveTasksToLocalStorage(task) {
+    let tasks = getTasksFromLocalStorage();
+    tasks.push(task);
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+// Function to get tasks from local storage
+function getTasksFromLocalStorage() {
+    let tasks = localStorage.getItem("tasks");
+    return tasks ? JSON.parse(tasks) : [];
+}
+
+// Function to update local storage after deleting a task
+function updateLocalStorage() {
+    let tasks = Array.from(document.querySelectorAll(".task span")).map(
+        (task) => task.textContent
+    );
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+// Function to load tasks from local storage
+function loadTasksFromLocalStorage() {
+    let tasks = getTasksFromLocalStorage();
+    let tasksContainer = document.querySelector("#tasks");
+
+    tasks.forEach(function (task) {
+        tasksContainer.innerHTML += `
+            <div class="task">
+              <span id="taskname">
+                ${task}
+              </span>
+              <button class="delete">
+                <i class="far fa-trash-alt"></i>
+              </button>
+            </div>
+        `;
+    });
+
+    // Attach delete event listeners to loaded tasks
+    let current_tasks = document.querySelectorAll(".delete");
+    for (var i = 0; i < current_tasks.length; i++) {
+        current_tasks[i].addEventListener("click", removeItem);
+    }
+}
+
+// Function to remove a task
+function removeItem() {
+    if (confirm("Are you sure?")) {
+        this.parentNode.remove();
+        updateLocalStorage();
+    }
+}
+
